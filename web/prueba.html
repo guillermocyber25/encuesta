@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/estilos2.css" media="screen" />
+    </head>
+    <body>
+        <div id="contact-form">
+	<div>
+		<h1>Encuesta</h1> 
+		<h4><%
+            
+            String usuario = (String)session.getAttribute("usuarioSesion");
+            String pwd = (String)session.getAttribute("pwdSesion");
+            Object s = session.getAttribute("sesionValida");
+            String nombre = (String)session.getAttribute("nombre");
+            int id_usuario = (Integer)session.getAttribute("id_usuario");
+            
+            if (s != null){
+                Boolean b = (Boolean)s;
+                if(b.booleanValue() == true){
+                    
+                    System.out.println("Sesion valida: encuesta.jsp");
+                    out.println("Bienvenido: " + nombre + "<br />");
+                    out.println("<a href='cierraSesion.jsp'>Cierra sesion</a>");
+                    out.println("<br /><br />");
+                }
+                else{
+                    
+                    response.sendRedirect("login.jsp");
+                }
+            }else{
+            response.sendRedirect("login.jsp"); 
+            }
+            
+        
+            %></h4> 
+	</div>
+		<p id="failure">Error al enviar el formulario</p>  
+		<p id="success">El formulario se envio con exito</p>
+
+		   <form method="post" action="/">
+			<div>
+		      <label for="name">
+		      	<span class="required">Name: *</span> 
+		      	<input type="text" id="name" name="name" value="" placeholder="Your Name" required="required" tabindex="1" autofocus="autofocus" />
+		      </label> 
+			</div>
+			<div>
+		      <label for="email">
+		      	<span class="required">Email: *</span>
+		      	<input type="email" id="email" name="email" value="" placeholder="Your Email" tabindex="2" required="required" />
+		      </label>  
+			</div>
+			<div>		          
+		      <label for="subject">
+		      <span>Subject: </span>
+			      <select id="subject" name="subject" tabindex="4">   
+			         <option value="hello">Product Price Question</option>
+			         <option value="quote">Where are my dragons?!</option>  
+			         <option value="general">- Valar Morghulis - </option>
+			      </select>
+		      </label>
+			</div>
+			<div>		          
+		      <label for="message">
+		      	<span class="required">Message: *</span> 
+		      	<textarea id="message" name="message" placeholder="Please write your message here." tabindex="5" required="required"></textarea> 
+		      </label>  
+			</div>
+			<div>		           
+		      <button name="submit" type="submit" id="submit" >SEND</button> 
+			</div>
+		   </form>
+
+	</div>
+    </body>
+</html>
